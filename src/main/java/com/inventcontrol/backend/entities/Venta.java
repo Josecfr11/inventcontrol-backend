@@ -1,7 +1,6 @@
 package com.inventcontrol.backend.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +13,8 @@ import java.time.LocalDateTime;
 @Data
 @Table(name = "ventas")
 public class Venta {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String numeroFactura;
     @CreationTimestamp
@@ -21,4 +22,7 @@ public class Venta {
     private Integer total;
     private String estado;
     private String tipoPago;
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
 }

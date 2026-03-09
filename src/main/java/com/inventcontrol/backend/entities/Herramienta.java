@@ -1,17 +1,18 @@
 package com.inventcontrol.backend.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "herramientas")
 public class Herramienta {
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String codigo;
@@ -24,5 +25,6 @@ public class Herramienta {
     private Integer stock_actual;
     private Integer valor;
     private String imagen;
-    private String fechaAdquisicion;
+    @CreationTimestamp
+    private LocalDateTime fechaAdquisicion;
 }
