@@ -1,4 +1,4 @@
 package com.inventcontrol.backend.mapper;
 
-public interface InventariosMapper {
+public interface MovimientosMapper {
 }

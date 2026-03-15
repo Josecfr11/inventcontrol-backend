@@ -1,6 +1,7 @@
 package com.inventcontrol.backend.controllers;
 
-import com.inventcontrol.backend.dtos.clientes.requests.ClienteListDTO;
+import com.inventcontrol.backend.services.dtos.clientes.responses.ClienteByIdDTO;
+import com.inventcontrol.backend.services.dtos.clientes.responses.ClienteListDTO;
 import com.inventcontrol.backend.services.IClientesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,11 +15,16 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 public class ClientesController {
 
-    private final IClientesService clienteService;
+    private final IClientesService iClientesService;
 
     @GetMapping
     public ResponseEntity<List<ClienteListDTO>> findAll() {
-        return ResponseEntity.ok(clienteService.findAll());
+        return ResponseEntity.ok(iClientesService.findAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ClienteByIdDTO> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(iClientesService.findById(id));
     }
 
 

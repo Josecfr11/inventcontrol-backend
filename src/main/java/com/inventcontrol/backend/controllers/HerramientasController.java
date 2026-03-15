@@ -1,6 +1,6 @@
 package com.inventcontrol.backend.controllers;
 
-import com.inventcontrol.backend.entities.Herramienta;
+import com.inventcontrol.backend.services.dtos.herramientas.responses.HerramientasListDTO;
 import com.inventcontrol.backend.services.IHerramientasService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -10,14 +10,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/herramientas")
-@RequiredArgsConstructor // Genera el constructor para la inyección de dependencias
+@RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200")
 public class HerramientasController {
-    private final IHerramientasService iHerramientaService;
+//    private final IHerramientasService iHerramientaService;
 
     // GET: Listar todas las herramientas
 //    @GetMapping
-//    public ResponseEntity<List<Herramienta>> listarTodas() {
+//    public ResponseEntity<List<HerramientasListDTO>> listarTodas() {
 //        return ResponseEntity.ok(iHerramientaService.findAll());
 //    }
 ////

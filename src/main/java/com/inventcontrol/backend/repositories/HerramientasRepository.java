@@ -1,4 +1,7 @@
 package com.inventcontrol.backend.repositories;
 
-public interface HerramientasRepository {
+import com.inventcontrol.backend.entities.Herramienta;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface HerramientasRepository extends JpaRepository<Herramienta, Long> {
 }
