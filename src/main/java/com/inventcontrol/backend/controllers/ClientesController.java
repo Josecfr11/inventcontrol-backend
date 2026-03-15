@@ -1,6 +1,7 @@
 package com.inventcontrol.backend.controllers;
 
 import com.inventcontrol.backend.entities.Clientes;
+import com.inventcontrol.backend.services.dtos.clientes.requests.ClienteUpdateDTO;
 import com.inventcontrol.backend.services.dtos.clientes.requests.ClienteNewDTO;
 import com.inventcontrol.backend.services.dtos.clientes.responses.ClienteByIdDTO;
 import com.inventcontrol.backend.services.dtos.clientes.responses.ClienteListDTO;
@@ -35,5 +36,15 @@ public class ClientesController {
         return ResponseEntity.ok(iClientesService.save(clienteNewDTO));
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<Void> create(@PathVariable Long id, @RequestBody ClienteUpdateDTO clienteUpdateDTO) {
+        iClientesService.updateCliente(id, clienteUpdateDTO);
+        return ResponseEntity.noContent().build();
+    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        iClientesService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }
