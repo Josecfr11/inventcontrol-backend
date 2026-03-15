@@ -1,5 +1,7 @@
 package com.inventcontrol.backend.controllers;
 
+import com.inventcontrol.backend.entities.Clientes;
+import com.inventcontrol.backend.services.dtos.clientes.requests.ClienteNewDTO;
 import com.inventcontrol.backend.services.dtos.clientes.responses.ClienteByIdDTO;
 import com.inventcontrol.backend.services.dtos.clientes.responses.ClienteListDTO;
 import com.inventcontrol.backend.services.IClientesService;
@@ -28,11 +30,10 @@ public class ClientesController {
         return ResponseEntity.ok(iClientesService.findById(id));
     }
 
-//    @PostMapping
-//    public ResponseEntity<Herramienta> crear(@RequestBody Herramienta herramienta) {
-//        Herramienta nuevaHerramienta = iHerramientaService.save(herramienta);
-//        return new ResponseEntity<>(nuevaHerramienta, HttpStatus.CREATED);
-//    }
+    @PostMapping
+    public ResponseEntity<Clientes> create(@RequestBody ClienteNewDTO clienteNewDTO) {
+        return ResponseEntity.ok(iClientesService.save(clienteNewDTO));
+    }
 
 
 }

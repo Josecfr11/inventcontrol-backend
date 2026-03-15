@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 @Entity
 @AllArgsConstructor
@@ -14,15 +15,15 @@ import java.time.LocalDateTime;
 @Table(name = "ventas")
 public class Ventas {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String numeroFactura;
     @CreationTimestamp
     private LocalDateTime fecha;
-    private Integer total;
+    private BigDecimal total;
     private String estado;
     private String tipoPago;
     @ManyToOne
     @JoinColumn(name = "cliente_id")
-    private Clientes clientes;
+    private Clientes cliente;
 }

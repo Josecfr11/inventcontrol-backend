@@ -11,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Table(name = "clientes")
 public class Clientes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +23,6 @@ public class Clientes {
     private String tipo;
     private String direccion;
     private Boolean activo;
-    @OneToMany(mappedBy = "clientes", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Ventas> ventas;
 }
