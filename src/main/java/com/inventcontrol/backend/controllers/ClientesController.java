@@ -19,6 +19,7 @@ public class ClientesController {
 
     @GetMapping
     public ResponseEntity<List<ClienteListDTO>> findAll() {
+        System.out.println(iClientesService.findAll());
         return ResponseEntity.ok(iClientesService.findAll());
     }
 
@@ -26,6 +27,12 @@ public class ClientesController {
     public ResponseEntity<ClienteByIdDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok(iClientesService.findById(id));
     }
+
+//    @PostMapping
+//    public ResponseEntity<Herramienta> crear(@RequestBody Herramienta herramienta) {
+//        Herramienta nuevaHerramienta = iHerramientaService.save(herramienta);
+//        return new ResponseEntity<>(nuevaHerramienta, HttpStatus.CREATED);
+//    }
 
 
 }

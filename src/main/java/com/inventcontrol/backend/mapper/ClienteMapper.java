@@ -1,8 +1,8 @@
 package com.inventcontrol.backend.mapper;
 
+import com.inventcontrol.backend.entities.Clientes;
 import com.inventcontrol.backend.services.dtos.clientes.responses.ClienteByIdDTO;
 import com.inventcontrol.backend.services.dtos.clientes.responses.ClienteListDTO;
-import com.inventcontrol.backend.entities.Cliente;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
@@ -12,10 +12,10 @@ import java.util.List;
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
 )
 public interface ClienteMapper {
-    public List<ClienteListDTO> toDtoList(List<Cliente> clientes);
+    public List<ClienteListDTO> toDtoList(List<Clientes> clientes);
 //    Cliente toEntity(ProductoDTO productoDTO)
-    ClienteByIdDTO toByIdDTO(Cliente cliente);
+    ClienteByIdDTO toByIdDTO(Clientes clientes);
 
-    List<ClienteListDTO> toResponseList(List<Cliente> entities);
+    List<ClienteListDTO> toResponseList(List<Clientes> entities);
 //    void updateEntity(UserRequestDTO dto, @MappingTarget User entity);
 }

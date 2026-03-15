@@ -11,19 +11,17 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Table(name = "proveedores")
-public class Proveedor {
+public class Clientes {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
     private String contacto;
     private String telefono;
     private String email;
+    private String tipo;
     private String direccion;
-    private String tipoProducto;
     private Boolean activo;
-    @OneToMany(mappedBy = "proveedor", cascade = CascadeType.ALL)
-    private List<Compra> compras;
-
+    @OneToMany(mappedBy = "clientes", cascade = CascadeType.ALL)
+    private List<Ventas> ventas;
 }

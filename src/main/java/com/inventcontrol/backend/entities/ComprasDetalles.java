@@ -11,16 +11,16 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class CompraDetalle {
+public class ComprasDetalles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "compra_id")
-    private Compra compra;
+    private Compras compras;
     @ManyToOne
     @JoinColumn(name = "herramienta_id")
-    private Herramienta herramienta;
+    private Herramientas herramientas;
     private Integer cantidad;
     @Column(precision = 12, scale = 2)
     private BigDecimal precioUnitarioCompra;

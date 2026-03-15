@@ -7,22 +7,21 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+
 @Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-@Table(name = "ventas")
-public class Venta {
+@Table(name = "movimientos")
+public class Movimientos {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String numeroFactura;
+    private String tipoMovimiento;
     @CreationTimestamp
     private LocalDateTime fecha;
-    private Integer total;
-    private String estado;
-    private String tipoPago;
-    @ManyToOne
-    @JoinColumn(name = "cliente_id")
-    private Cliente cliente;
+    private String moduloOrigen;
+    private Integer cantidad;
+    private String descripcion;
+
 }

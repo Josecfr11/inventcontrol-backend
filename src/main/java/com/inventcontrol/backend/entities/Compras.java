@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Compra {
+public class Compras {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,7 +25,7 @@ public class Compra {
     private String observaciones;
     @ManyToOne
     @JoinColumn(name = "proveedor_id")
-    private Proveedor proveedor;
-    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL)
-    private List<CompraDetalle> compraDetalles;
+    private Proveedores proveedor;
+    @OneToMany(mappedBy = "compras", cascade = CascadeType.ALL)
+    private List<ComprasDetalles> comprasDetalles;
 }
