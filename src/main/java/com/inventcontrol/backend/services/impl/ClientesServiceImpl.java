@@ -2,10 +2,10 @@ package com.inventcontrol.backend.services.impl;
 
 import com.inventcontrol.backend.entities.Clientes;
 import com.inventcontrol.backend.exceptions.ResourceNotFoundException;
-import com.inventcontrol.backend.services.dtos.clientes.requests.ClienteUpdateDTO;
-import com.inventcontrol.backend.services.dtos.clientes.requests.ClienteNewDTO;
-import com.inventcontrol.backend.services.dtos.clientes.responses.ClienteByIdDTO;
-import com.inventcontrol.backend.services.dtos.clientes.responses.ClienteListDTO;
+import com.inventcontrol.backend.dtos.clientes.requests.ClienteUpdateDTO;
+import com.inventcontrol.backend.dtos.clientes.requests.ClienteNewDTO;
+import com.inventcontrol.backend.dtos.clientes.responses.ClienteByIdDTO;
+import com.inventcontrol.backend.dtos.clientes.responses.ClienteListDTO;
 import com.inventcontrol.backend.mapper.ClienteMapper;
 import com.inventcontrol.backend.repositories.ClientesRepository;
 import com.inventcontrol.backend.services.IClientesService;

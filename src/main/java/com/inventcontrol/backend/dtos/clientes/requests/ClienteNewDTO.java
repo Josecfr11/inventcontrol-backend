@@ -1,6 +1,6 @@
-package com.inventcontrol.backend.services.dtos.clientes.requests;
+package com.inventcontrol.backend.dtos.clientes.requests;
 
-public class ClienteUpdateDTO {
+public class ClienteNewDTO {
     public String email;
     public String nombre;
     public String contacto;

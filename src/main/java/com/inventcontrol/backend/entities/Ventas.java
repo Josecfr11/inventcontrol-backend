@@ -8,6 +8,8 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,4 +28,6 @@ public class Ventas {
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Clientes cliente;
+    @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL)
+    private List<VentasDetalles> detalles;
 }

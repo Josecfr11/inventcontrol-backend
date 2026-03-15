@@ -1,10 +1,10 @@
 package com.inventcontrol.backend.controllers;
 
 import com.inventcontrol.backend.entities.Clientes;
-import com.inventcontrol.backend.services.dtos.clientes.requests.ClienteUpdateDTO;
-import com.inventcontrol.backend.services.dtos.clientes.requests.ClienteNewDTO;
-import com.inventcontrol.backend.services.dtos.clientes.responses.ClienteByIdDTO;
-import com.inventcontrol.backend.services.dtos.clientes.responses.ClienteListDTO;
+import com.inventcontrol.backend.dtos.clientes.requests.ClienteUpdateDTO;
+import com.inventcontrol.backend.dtos.clientes.requests.ClienteNewDTO;
+import com.inventcontrol.backend.dtos.clientes.responses.ClienteByIdDTO;
+import com.inventcontrol.backend.dtos.clientes.responses.ClienteListDTO;
 import com.inventcontrol.backend.services.IClientesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
