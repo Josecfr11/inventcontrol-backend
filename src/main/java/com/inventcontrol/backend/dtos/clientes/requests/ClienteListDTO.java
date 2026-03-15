@@ -1,4 +1,4 @@
-package com.inventcontrol.backend.dtos;
+package com.inventcontrol.backend.dtos.clientes.requests;
 
 public class ClienteListDTO {
     public String id;

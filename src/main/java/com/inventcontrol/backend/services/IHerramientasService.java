@@ -1,4 +1,4 @@
 package com.inventcontrol.backend.services;
 
-public interface IHerramientaService {
+public interface IHerramientasService {
 }

@@ -1,6 +1,6 @@
 package com.inventcontrol.backend.mapper;
 
-import com.inventcontrol.backend.dtos.ClienteListDTO;
+import com.inventcontrol.backend.dtos.clientes.requests.ClienteListDTO;
 import com.inventcontrol.backend.entities.Cliente;
 import org.mapstruct.Mapper;
 

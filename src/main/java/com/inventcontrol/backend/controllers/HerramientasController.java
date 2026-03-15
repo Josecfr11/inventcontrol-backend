@@ -1,9 +1,8 @@
 package com.inventcontrol.backend.controllers;
 
 import com.inventcontrol.backend.entities.Herramienta;
-import com.inventcontrol.backend.services.IHerramientaService;
+import com.inventcontrol.backend.services.IHerramientasService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,14 +13,14 @@ import java.util.List;
 @RequiredArgsConstructor // Genera el constructor para la inyección de dependencias
 @CrossOrigin(origins = "http://localhost:4200")
 public class HerramientasController {
-    private final IHerramientaService iHerramientaService;
+    private final IHerramientasService iHerramientaService;
 
     // GET: Listar todas las herramientas
 //    @GetMapping
 //    public ResponseEntity<List<Herramienta>> listarTodas() {
 //        return ResponseEntity.ok(iHerramientaService.findAll());
 //    }
-//
+////
 //    // GET: Buscar una herramienta por ID
 //    @GetMapping("/{id}")
 //    public ResponseEntity<Herramienta> obtenerPorId(@PathVariable Long id) {
