@@ -12,7 +12,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/proveedores")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "${app.cors.allowed-origins}")
 public class ProveedoresController {
 
     private final IProveedoresService service;

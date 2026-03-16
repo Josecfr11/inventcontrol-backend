@@ -18,7 +18,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/herramientas")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "${app.cors.allowed-origins}")
 public class HerramientasController {
 
     private final IHerramientasService service;
