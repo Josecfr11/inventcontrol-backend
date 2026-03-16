@@ -1,11 +1,13 @@
 package com.inventcontrol.backend.services;
 
-import com.inventcontrol.backend.dtos.ventas.requests.VentaDTO;
-import com.inventcontrol.backend.entities.Ventas;
+import com.inventcontrol.backend.dtos.ventas.requests.VentaRequestDTO;
+import com.inventcontrol.backend.dtos.ventas.responses.VentaResponseDTO;
 
 import java.util.List;
 
 public interface IVentasService {
-    Ventas create(VentaDTO dto);
-    List<Ventas> findAll();
+
+    VentaResponseDTO create(VentaRequestDTO dto);
+
+    List<VentaResponseDTO> findAll();
 }

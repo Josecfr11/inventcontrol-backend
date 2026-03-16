@@ -2,6 +2,9 @@ package com.inventcontrol.backend.services.impl;
 
 import com.inventcontrol.backend.dtos.ventas.requests.VentaDTO;
 import com.inventcontrol.backend.dtos.ventas.requests.VentaDetalleDTO;
+import com.inventcontrol.backend.dtos.ventas.requests.VentaRequestDTO;
+import com.inventcontrol.backend.dtos.ventas.responses.VentaDetalleResponseDTO;
+import com.inventcontrol.backend.dtos.ventas.responses.VentaResponseDTO;
 import com.inventcontrol.backend.entities.Clientes;
 import com.inventcontrol.backend.entities.Herramientas;
 import com.inventcontrol.backend.entities.Ventas;
@@ -16,16 +19,17 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class VentasServiceImpl implements IVentasService {
+
     private final VentasRepository ventasRepository;
     private final ClientesRepository clientesRepository;
     private final HerramientasRepository herramientasRepository;
 
     @Override
     @Transactional
-    public Ventas create(VentaDTO dto) {
+    public VentaResponseDTO create(VentaRequestDTO dto) {
 
         Clientes cliente = clientesRepository.findById(dto.clienteId())
                 .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
@@ -36,34 +40,69 @@ public class VentasServiceImpl implements IVentasService {
         venta.setTipoPago(dto.tipoPago());
         venta.setTotal(dto.total());
         venta.setCliente(cliente);
-        List<VentasDetalles> listaDetalles = new ArrayList<>();
 
-        for (VentaDetalleDTO detalleDTO : dto.detalles()) {
-            Herramientas herramienta = herramientasRepository.findById(detalleDTO.herramientaId())
-                    .orElseThrow(() -> new RuntimeException("Herramienta no encontrada: " + detalleDTO.herramientaId()));
+        List<VentasDetalles> detalles = new ArrayList<>();
 
-            if (herramienta.getStockActual() < detalleDTO.cantidad()) {
-                throw new RuntimeException("Stock insuficiente para: " + herramienta.getNombre());
+        for (VentaDetalleDTO d : dto.detalles()) {
+
+            Herramientas herramienta = herramientasRepository.findById(d.herramientaId())
+                    .orElseThrow(() -> new RuntimeException("Herramienta no encontrada"));
+
+            if (herramienta.getStockActual() < d.cantidad()) {
+                throw new RuntimeException("Stock insuficiente");
             }
-            herramienta.setStockActual(herramienta.getStockActual() - detalleDTO.cantidad());
+
+            herramienta.setStockActual(herramienta.getStockActual() - d.cantidad());
             herramientasRepository.save(herramienta);
+
             VentasDetalles detalle = new VentasDetalles();
-            detalle.setHerramienta(herramienta);
-            detalle.setCantidad(detalleDTO.cantidad());
-            detalle.setPrecioUnitario(detalleDTO.precioUnitario());
-            detalle.setSubtotal(detalleDTO.subtotal());
-
             detalle.setVenta(venta);
+            detalle.setHerramienta(herramienta);
+            detalle.setCantidad(d.cantidad());
+            detalle.setPrecioUnitario(d.precioUnitario());
+            detalle.setSubtotal(d.subtotal());
 
-            listaDetalles.add(detalle);
+            detalles.add(detalle);
         }
-        venta.setDetalles(listaDetalles);
-        return ventasRepository.save(venta);
+
+        venta.setDetalles(detalles);
+
+        Ventas ventaGuardada = ventasRepository.save(venta);
+
+        return mapToResponse(ventaGuardada);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Ventas> findAll() {
-        return ventasRepository.findAll();
+    public List<VentaResponseDTO> findAll() {
+        return ventasRepository.findAll()
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
+
+    private VentaResponseDTO mapToResponse(Ventas venta) {
+
+        List<VentaDetalleResponseDTO> detalles =
+                venta.getDetalles().stream()
+                        .map(d -> new VentaDetalleResponseDTO(
+                                d.getHerramienta().getId(),
+                                d.getHerramienta().getNombre(),
+                                d.getCantidad(),
+                                d.getPrecioUnitario(),
+                                d.getSubtotal()
+                        ))
+                        .toList();
+
+        return new VentaResponseDTO(
+                venta.getId(),
+                venta.getNumeroFactura(),
+                venta.getEstado(),
+                venta.getTipoPago(),
+                venta.getTotal(),
+                venta.getFecha(),
+                venta.getCliente().getNombre(),
+                detalles
+        );
     }
 }

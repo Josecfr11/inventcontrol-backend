@@ -1,5 +1,6 @@
 package com.inventcontrol.backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +19,8 @@ public class VentasDetalles {
 
     @ManyToOne
     @JoinColumn(name = "venta_id")
-    private Ventas venta; // La venta a la que pertenece este detalle
+    @JsonIgnore
+    private Ventas venta;
 
     @ManyToOne
     @JoinColumn(name = "herramienta_id")
