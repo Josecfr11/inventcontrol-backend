@@ -7,10 +7,12 @@ import com.inventcontrol.backend.dtos.ventas.responses.VentaDetalleResponseDTO;
 import com.inventcontrol.backend.dtos.ventas.responses.VentaResponseDTO;
 import com.inventcontrol.backend.entities.Clientes;
 import com.inventcontrol.backend.entities.Herramientas;
+import com.inventcontrol.backend.entities.Movimientos; // <-- NUEVO IMPORT
 import com.inventcontrol.backend.entities.Ventas;
 import com.inventcontrol.backend.entities.VentasDetalles;
 import com.inventcontrol.backend.repositories.ClientesRepository;
 import com.inventcontrol.backend.repositories.HerramientasRepository;
+import com.inventcontrol.backend.repositories.MovimientosRepository;
 import com.inventcontrol.backend.repositories.VentasRepository;
 import com.inventcontrol.backend.services.IVentasService;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,7 @@ public class VentasServiceImpl implements IVentasService {
     private final VentasRepository ventasRepository;
     private final ClientesRepository clientesRepository;
     private final HerramientasRepository herramientasRepository;
+    private final MovimientosRepository movimientosRepository; // <-- 1. INYECTAR EL REPOSITORIO DE MOVIMIENTOS
 
     @Override
     @Transactional
@@ -49,11 +52,21 @@ public class VentasServiceImpl implements IVentasService {
                     .orElseThrow(() -> new RuntimeException("Herramienta no encontrada"));
 
             if (herramienta.getStockActual() < d.cantidad()) {
-                throw new RuntimeException("Stock insuficiente");
+                throw new RuntimeException("Stock insuficiente para: " + herramienta.getNombre());
             }
 
+            // Descontamos el stock
             herramienta.setStockActual(herramienta.getStockActual() - d.cantidad());
             herramientasRepository.save(herramienta);
+
+            // ---> 2. REGISTRAR EN EL KARDEX DE MOVIMIENTOS <---
+            Movimientos mov = new Movimientos();
+            mov.setTipoMovimiento("SALIDA");
+            mov.setModuloOrigen("VENTAS");
+            mov.setCantidad(-d.cantidad()); // Lo ponemos en negativo porque es una salida
+            mov.setDescripcion("Venta Factura: " + dto.numeroFactura() + " | " + herramienta.getNombre());
+            movimientosRepository.save(mov);
+            // ---------------------------------------------------
 
             VentasDetalles detalle = new VentasDetalles();
             detalle.setVenta(venta);

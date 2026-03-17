@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,7 +21,8 @@ public class Compras {
     private String numeroOrden;
     @CreationTimestamp
     private LocalDateTime fechaRegistro;
-    private Integer total;
+    @Column(precision = 12, scale = 2)
+    private BigDecimal total;
     private String estado;
     private String observaciones;
     @ManyToOne
